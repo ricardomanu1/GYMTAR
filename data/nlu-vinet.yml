@@ -1,0 +1,66 @@
+version: "2.0"
+nlu:
+- intent: vinet_cuenco
+  examples: |
+    - hablame del cuenco de cerámica
+    - hablame del cuenco
+    - hablame de ese cuenco
+    - hablame de este cuenco
+    - cuentame cosas sobre el cuenco
+    - cuentame cosas sobre el cuenco de cerámica
+    - ¿me puedes hablar sobre el cuenco de cerámica?
+- intent: vinet_lucerna
+  examples: |
+    - hablame de la lucerna
+    - hablame de una lucerna
+    - hablame de esa lucerna
+    - hablame de esta lucerna
+    - cuentame cosas sobre la lucerna
+    - ¿me puedes hablar sobre la lucerna?
+- intent: vinet_ara
+  examples: |
+    - hablame del ara
+    - hablame de la ara
+    - hablame de la ara votiva
+    - hablame del ara votiva
+    - cuentame sobre el ara
+    - cuentame sobre el ara votiva
+    - ¿me puedes hablar sobre el ara votiva?
+- intent: vinet_lacrimario
+  examples: |
+    - hablame del lacrimario
+    - hablame de un lacrimario
+    - hablame de este lacrimario
+    - hablame de ese lacrimario
+    - cuentame sobre el lacrimario
+    - ¿me puedes hablar sobre el lacrimario?
+- intent: vinet_objeto
+  examples: |
+    - quiero saber sobre este objeto
+    - hablame sobre este objeto
+    - hablame sobre esto
+    - ¿que es esto?
+    - ¿me puedes hablar sobre este objeto?
+
+- intent: vinet_portus_acierto
+  examples: |
+    - ¿Es puerta?
+    - Significa puerta
+
+- intent: vinet_portus_error
+  examples: |
+    - no tengo idea
+    - no lo se
+    - no se me ocurre que es
+
+- intent: vinet_guia
+  examples: |
+    - ¿Y qué es lo que habéis encontrado?
+    - ¿Y qué es lo que habéis encontrado aquí?
+    - ¿Qué habéis encontrado?
+    - ¿Y qué es lo que habéis encontrado en esta zona?
+
+- intent: vinet_portus_acierto2
+  examples: |
+    - comer y alojarte
+    - descansar
