@@ -30,11 +30,8 @@ Bi = ''
 Be = ''
 lang = 'es-ES'
 polarity = 0
-eyesTracking = 0
 inter1 = False
 
-## VINET
-objs = ["la entrada","la lucerna","el lacrimario","el cuenco de cerámica","el ara"]
 ## Kinect
 watch = False
 watchResponse = ''
@@ -47,11 +44,6 @@ Intents = intents_manager()
 context = Intents.get_context()
 
 # Memoria del Bot
-slot_people = 0
-slot_zone = 0
-slot_emotion = ''
-slot_posXY = [0,0]
-slot_object = ""
 slot_name = ''
 slot_daytime = ''
 
@@ -60,15 +52,13 @@ def __init__(self):
     self.agent_id = 'actions'
 
 # Number of responses
-def contador():
-    
+def contador():    
     global count
     count = count + 1
     return []
 
 # Last event that has been generated to capture the response that has been selected from the Domain file
-def get_latest_event(events):
-    
+def get_latest_event(events):    
     latest_actions = []
     for e in events:
         if e['event'] == 'bot':
@@ -105,7 +95,6 @@ def the_day(x):
 
 ## Estructura BOT
 class ChatBot(Action):
-
     def name(self) -> Text:
         return "chatbot"
 
@@ -116,15 +105,9 @@ class ChatBot(Action):
         global Bi
         global Be
         global lang
-        global slot_people
-        global slot_zone
-        global slot_emotion
         global slot_name
         global slot_daytime
-        global slot_posXY
-        global slot_object
         global polarity
-        global eyesTracking
         global inter1
 
         print("--------------------------------------------------------------------------------------------")
@@ -136,9 +119,7 @@ class ChatBot(Action):
         metadata = tracker.latest_message['metadata']
         ## Slots
         slot_name = tracker.get_slot('name')       
-        slot_place = tracker.get_slot('place')       
-        slot_year = tracker.get_slot('year')       
-        slot_milestone = tracker.get_slot('milestone')           
+        slot_year = tracker.get_slot('year')             
        
         Bi = intent['name']
         id_event = metadata['event']
@@ -167,19 +148,8 @@ class ChatBot(Action):
             objInterest = None
             #for key, value in metadata.items():
             #    print(key, value)
-            if 'people' in metadata:
-                slot_people = metadata['people']
-            if 'zone' in metadata:
-                slot_zone = metadata['zone'] 
-                objInterest = 'obj' + str(slot_zone)
-                slot_object = objs[slot_zone]
-            if 'emotion' in metadata:
-                slot_emotion = metadata['emotion']  
-            if 'posXY' in metadata:
-                slot_posXY = metadata['posXY']  
-            if 'object' in metadata:
-                slot_object = metadata['object']  
-            eyesTracking = slot_zone            
+            #if 'emotion' in metadata:
+            #    slot_emotion = metadata['emotion']           
             user_event = [id_event,text,objInterest,'']             
             print('EVENT: ' + str(user_event)) 
             if text in context:
@@ -341,11 +311,7 @@ class Say(Action):
             hours = hours,
             day = day,
             daytime = slot_daytime,
-            name = slot_name,
-            people = slot_people,
-            zone = slot_zone,
-            object = slot_object,
-            emotion = slot_emotion)
+            name = slot_name)
 
         contador()
         print("dispatcher: " + str(count))   
@@ -393,7 +359,7 @@ class CSV():
         global watch, watchResponse
         output_csv = open('speech.csv','w+',newline='')
         writer = csv.writer(output_csv, delimiter =',')
-        writer.writerow(['action','response','emotion','language','animation','eyesTracking','emotionAzure','video','length'])
+        writer.writerow(['action','response','emotion','language','animation','emotionAzure','video','length'])
         animation_tag = 'informar'  
         video = ''  
         length = 0
@@ -406,7 +372,7 @@ class CSV():
                     if 'length' in response['metadata']['metadata']:
                         length = float(response['metadata']['metadata']['length'])
             print(' -' + str(response['text']))
-            writer.writerow(['say',str(response['text']), str(Emotions.estado),lang,animation_tag,str(eyesTracking),str(Emotions.tag()),str(video),length])
+            writer.writerow(['say',str(response['text']), str(Emotions.estado),lang,animation_tag,str(Emotions.tag()),str(video),length])
         if(watch):
             writer.writerow(['watch',str(watchResponse)])
             watch = False

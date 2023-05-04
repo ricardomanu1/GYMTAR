@@ -40,7 +40,6 @@ nlu:
   examples: |
     - ¿Cómo me notas?
     - ¿Cómo me ves?
-    - ¿Cómo crees que me siento?
 - intent: atencion
   examples: |
     - oye.
@@ -409,36 +408,6 @@ nlu:
     - espera.
     - cierra la boca.
     - guarda silencio.
-- intent: solicitar
-  examples: |
-    - ¿podrías darme información?.
-    - ¿quiero información?.
-    - ¿dame información?.
-    - ¿dame datos de interes?.
-    - me gustaria información.
-- intent: solicitar_especifica_fecha
-  examples: |  
-    - ¿podrías darme información de [1350](year)?.
-    - ¿tienes información de [1350](year)?
-- intent: solicitar_especifica_hito
-  examples: |  
-    - me interesa saber sobre [la excavación de Ibañeta](milestone)
-    - cuentame sobre [la excavación de ibañeta](milestone)
-    - hablame de [Ibañeta](milestone)
-    - hablame sobre [Ibañeta](milestone)
-- intent: solicitar_especifica_lugar
-  examples: |  
-    - dame información de [Roncesvalles](place).
-    - cuentame sobre [Roncesvalles](place).
-    - cuentame algo sobre [Roncesvalles](place).
-    - dame información de [Ibañeta](place).
-    - hablame de [Ibañeta](place).
-- intent: solicitar_interes
-  examples: |
-    - ¿qué te parece mas interesante?
-    - ¿qué me recomendarias?
-    - ¿qué es lo que te parece mas interesante?
-    - ¿qué es lo que me recomendarias?
 - intent: out_of_scope
   examples: |
     - quiero pedir comida.

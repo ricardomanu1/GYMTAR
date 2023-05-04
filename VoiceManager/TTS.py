@@ -52,10 +52,10 @@ if os.path.exists(Output_file):
 # Viseme event
 def viseme_cb(evt):
     #print("Viseme event received: audio offset: {}ms, viseme id: {}.".format(evt.audio_offset / 10000, evt.viseme_id))
-    writer.writerow([evt.audio_offset / 10000, evt.viseme_id,body_anim,emo_value,face_pos,video])
+    writer.writerow([evt.audio_offset / 10000, evt.viseme_id,body_anim,emo_value,video])
     # Create a copy of the output file for Unreal
     if External_file:
-        writerU.writerow([evt.audio_offset / 10000, evt.viseme_id,body_anim,emo_value,face_pos,video])
+        writerU.writerow([evt.audio_offset / 10000, evt.viseme_id,body_anim,emo_value,video])
     # 'Animation' is an xml string for SVG or a json string for blend shapes
     animation = evt.animation
 
@@ -74,13 +74,13 @@ while True:
                     ## Own copy
                     output_csv = open('Response/visemes.csv','w+',newline='')
                     writer = csv.writer(output_csv, delimiter =';')
-                    writer.writerow(['audio_offset','viseme_id','body_anim','emo_value','face_pos','video'])
+                    writer.writerow(['audio_offset','viseme_id','body_anim','emo_value','video'])
                     # Create a copy of the output file for Unreal
                     if External_file:
                         try:
                             output_Unreal = open(Output_file + '/visemes.csv','w+',newline='')
                             writerU = csv.writer(output_Unreal, delimiter =';')
-                            writerU.writerow(['audio_offset','viseme_id','body_anim','emo_value','face_pos','video'])
+                            writerU.writerow(['audio_offset','viseme_id','body_anim','emo_value','video'])
                         except IOError as e:                            
                             while True: 
                                 print("Error {0}".format(e))
@@ -88,7 +88,7 @@ while True:
                                 try:
                                    output_Unreal = open(Output_file + '/visemes.csv','w+',newline='')
                                    writerU = csv.writer(output_Unreal, delimiter =';')
-                                   writerU.writerow(['audio_offset','viseme_id','body_anim','emo_value','face_pos','video'])
+                                   writerU.writerow(['audio_offset','viseme_id','body_anim','emo_value','video'])
                                    break
                                 except:
                                     print("Error {0}".format(e))
@@ -103,8 +103,6 @@ while True:
                     sentiment_analysis = Sentiment.sentiment(contents,lang)
                     # Polarity
                     emo_value = sentiment_analysis
-                    # EyesTracking
-                    face_pos = str(row['eyesTracking'])
                     # Emotional tag for Azure
                     emotionAzure = str(row['emotionAzure'])     
                     # multimedia content

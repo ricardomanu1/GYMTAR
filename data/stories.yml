@@ -20,6 +20,12 @@ stories:
   - action: chatbot
   - action: to_speech
 
+- story: analizame path
+  steps:
+  - intent: analizame
+  - action: chatbot
+  - action: to_speech
+
 - story: preguntar_como path
   steps:
   - intent: preguntar_como
@@ -173,30 +179,6 @@ stories:
 - story: ubicarme_path
   steps:
   - intent: ubicarme
-  - action: chatbot
-  - action: to_speech
-
-- story: vinet_cuenco_path
-  steps:
-  - intent: vinet_cuenco
-  - action: chatbot
-  - action: to_speech
-
-- story: vinet_ara_path
-  steps:
-  - intent: vinet_ara
-  - action: chatbot
-  - action: to_speech
-
-- story: vinet_lacrimario_path
-  steps:
-  - intent: vinet_lacrimario
-  - action: chatbot
-  - action: to_speech
-
-- story: vinet_lucerna_path
-  steps:
-  - intent: vinet_lucerna
   - action: chatbot
   - action: to_speech
 

@@ -1,0 +1,17 @@
+﻿version: '2.0'
+session_config:
+  session_expiration_time: 36000
+  carry_over_slots_to_new_session: true
+intents:
+- rutina
+- rutina_proxima
+- rutina_anterior
+
+responses:
+  utter_rutina:
+  - metadata:
+      subtext: informar     
+    text: Tienes esta rutina
+  - metadata:
+      subtext: informar     
+    text: Hoy toca hacer esto
