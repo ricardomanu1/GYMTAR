@@ -22,6 +22,7 @@ intents:
 - estado_soledad
 - identidad
 - identidad_sn
+- identidad_user
 - negar
 - no_solicitar
 - presentacion
@@ -39,6 +40,9 @@ entities:
 
 slots:  
   hours:
+    type: text
+    influence_conversation: true
+  avatar:
     type: text
     influence_conversation: true
   name:
@@ -348,23 +352,35 @@ responses:
       subtext: informar     
     text: Mi nombre es {avatar} y soy tu entrenador.
 
+# El usuario quiere saber su identidad
+  utter_identidad_user:
+  - metadata:
+      subtext: informar     
+    text: Tú eres {name}.
+  - metadata:
+      subtext: informar     
+    text: Eres {name}.
+  - metadata:
+      subtext: informar     
+    text: Tu nombre es {name}.
+
 # Interes por el usuario
   utter_interes:
   - metadata:
       subtext: preguntar     
-    text: ¿Qué tal?
+    text: ¿Qué tal {name}?
   - metadata:
       subtext: preguntar     
-    text: ¿Qué tal estas?
+    text: ¿Qué tal estas {name}?
   - metadata:
       subtext: preguntar     
-    text: ¿Qué te cuentas?
+    text: ¿Qué te cuentas {name}?
   - metadata:
       subtext: preguntar     
-    text: ¿Cómo te encuentras?
+    text: ¿Cómo te encuentras {name}?
   - metadata:
       subtext: preguntar     
-    text: ¿Cómo estás?
+    text: ¿Cómo estás {name}?
 
 # Negar
   utter_negar:
@@ -414,21 +430,21 @@ responses:
       - type: slot
         name: daytime
         value: "morning"
-    text: "Buenos días {avatar}."
+    text: "Buenos días {name}."
     metadata:
       subtext: saludar 
   - condition:
       - type: slot
         name: daytime
         value: "afternoon"
-    text: "Buenas tardes {avatar}."
+    text: "Buenas tardes {name}."
     metadata:
       subtext: saludar 
   - condition:
       - type: slot
         name: daytime
         value: "evening"
-    text: "Buenas noches {avatar}."
+    text: "Buenas noches {name}."
     metadata:
       subtext: saludar 
   - metadata:

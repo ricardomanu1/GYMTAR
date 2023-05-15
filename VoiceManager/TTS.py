@@ -42,8 +42,8 @@ speech_config.speech_synthesis_language = "en-US"
 speech_config.speech_synthesis_voice_name ="en-US-JennyMultilingualNeural"
 
 # Audio output configuration
-    # audio_config = speechsdk.audio.AudioOutputConfig(use_default_speaker=True)
-audio_config = speechsdk.AudioConfig(use_default_microphone=False, filename = "Response/response.wav")
+audio_config = speechsdk.audio.AudioOutputConfig(use_default_speaker=True)
+#audio_config = speechsdk.AudioConfig(use_default_microphone=False, filename = "Response/response.wav")
 speech_synthesizer = speechsdk.SpeechSynthesizer(speech_config=speech_config,audio_config=audio_config)
 
 if os.path.exists(Output_file):
@@ -86,10 +86,10 @@ while True:
                                 print("Error {0}".format(e))
                                 time.sleep(1)
                                 try:
-                                   output_Unreal = open(Output_file + '/visemes.csv','w+',newline='')
-                                   writerU = csv.writer(output_Unreal, delimiter =';')
-                                   writerU.writerow(['audio_offset','viseme_id','body_anim','emo_value','video'])
-                                   break
+                                    output_Unreal = open(Output_file + '/visemes.csv','w+',newline='')
+                                    writerU = csv.writer(output_Unreal, delimiter =';')
+                                    writerU.writerow(['audio_offset','viseme_id','body_anim','emo_value','video'])
+                                    break
                                 except:
                                     print("Error {0}".format(e))
                     # Sentence
@@ -100,6 +100,8 @@ while True:
                     lang = str(row['language'])
                     # Animation
                     body_anim = str(row['animation'])
+                    # Avatar
+                    avatar = str(row['avatar'])
                     sentiment_analysis = Sentiment.sentiment(contents,lang)
                     # Polarity
                     emo_value = sentiment_analysis
@@ -112,7 +114,7 @@ while True:
                     # XML - SSML generator               
                     if lang == 'es-ES' or lang == 'eu-ES': ## Spanish or Basque 
                         text_trans = contents
-                        XML.esXML(contents,emotion,lang,sentiment_analysis)
+                        XML.esXML(contents,emotion,lang,sentiment_analysis,avatar)
                     elif lang == 'en-US': ## English Emotional
                         # Sentence translation
                         text_trans = Translator.translator(contents,'es',lang[0:2])

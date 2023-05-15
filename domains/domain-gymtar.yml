@@ -15,3 +15,13 @@ responses:
   - metadata:
       subtext: informar     
     text: Hoy toca hacer esto
+
+  utter_rutina_proxima:
+  - metadata:
+      subtext: informar     
+    text: Tendrás esta rutina
+
+  utter_rutina_anterior:
+  - metadata:
+      subtext: informar     
+    text: Tuviste esta rutina

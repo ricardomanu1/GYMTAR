@@ -362,6 +362,12 @@ nlu:
     - ¿eres una persona real?
     - ¿eres siquiera una persona real?
     - eres un bot ¿no?
+- intent: identidad_user
+  examples: |
+    - ¿sabes quien soy?
+    - ¿sabes quien soy yo?
+    - ¿quien soy yo?
+    - ¿me conoces?
 - intent: negar
   examples: |
     - nop.
@@ -385,18 +391,28 @@ nlu:
 - intent: presentacion
   examples: |
     - yo soy [Ricardo](name)
+    - soy [Ricardo](name)
     - soy [Amalia](name)
     - soy [Sebastian](name)
     - soy [ricardo](name)
     - soy [Xabi](name)
     - soy [Iñigo](name)
+    - soy [Joseja](name)
 - intent: saludar  
   examples: |
     - muy buenas.
+    - muy buenas [Sonia](avatar).
+    - muy buenas [Carlos](avatar).
+    - hola [Sonia](avatar).
+    - hola [Carlos](avatar).
     - hola.
     - holas.
     - buenos días.
+    - buenos días [Sonia](avatar).
+    - buenos días [Carlos](avatar).
     - buenas tardes.
+    - buenas tardes [Sonia](avatar).
+    - buenas tardes [Carlos](avatar).
     - buenas noches.
     - ¡hola!   
 - intent: silencio

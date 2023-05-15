@@ -30,6 +30,7 @@ Bi = ''
 Be = ''
 lang = 'es-ES'
 polarity = 0
+avatar = 'f'
 inter1 = False
 
 ## Kinect
@@ -46,6 +47,7 @@ context = Intents.get_context()
 # Memoria del Bot
 slot_name = ''
 slot_daytime = ''
+slot_avatar = ''
 
 # Methods
 def __init__(self):
@@ -105,12 +107,15 @@ class ChatBot(Action):
         global Bi
         global Be
         global lang
+        global polarity
+        global avatar
+        global inter1
         global slot_name
         global slot_daytime
-        global polarity
-        global inter1
+        global slot_avatar
 
         print("--------------------------------------------------------------------------------------------")
+
         inter1 = True
         ## Valores de entrada, si es un texto
         intent = tracker.latest_message['intent']
@@ -118,7 +123,8 @@ class ChatBot(Action):
         entities = tracker.latest_message['entities']
         metadata = tracker.latest_message['metadata']
         ## Slots
-        slot_name = tracker.get_slot('name')       
+        slot_name = tracker.get_slot('name')      
+        slot_avatar = tracker.get_slot('avatar')          
         slot_year = tracker.get_slot('year')             
        
         Bi = intent['name']
@@ -128,7 +134,14 @@ class ChatBot(Action):
 
         for e in entities:
             print("entidad: {} = {}".format(e['entity'],e['value']))
+            if e['entity'] == 'avatar':
+                avatarVoice = e['value']
+                if avatarVoice == 'Sonia':
+                    avatar = 'f'
+                else:
+                    avatar = 'm'
        
+
         ## Entradas de Voz       
         if (id_event == 'say'):
             if 'emotion' in metadata:
@@ -359,7 +372,7 @@ class CSV():
         global watch, watchResponse
         output_csv = open('speech.csv','w+',newline='')
         writer = csv.writer(output_csv, delimiter =',')
-        writer.writerow(['action','response','emotion','language','animation','emotionAzure','video','length'])
+        writer.writerow(['action','response','emotion','language','animation','emotionAzure','video','length','avatar'])
         animation_tag = 'informar'  
         video = ''  
         length = 0
@@ -372,7 +385,7 @@ class CSV():
                     if 'length' in response['metadata']['metadata']:
                         length = float(response['metadata']['metadata']['length'])
             print(' -' + str(response['text']))
-            writer.writerow(['say',str(response['text']), str(Emotions.estado),lang,animation_tag,str(Emotions.tag()),str(video),length])
+            writer.writerow(['say',str(response['text']), str(Emotions.estado),lang,animation_tag,str(Emotions.tag()),str(video),length,avatar])
         if(watch):
             writer.writerow(['watch',str(watchResponse)])
             watch = False

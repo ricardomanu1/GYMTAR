@@ -170,12 +170,6 @@ stories:
   - action: chatbot
   - action: to_speech
 
-- story: solicitar_path
-  steps:
-  - intent: solicitar
-  - action: chatbot
-  - action: to_speech
-
 - story: ubicarme_path
   steps:
   - intent: ubicarme
