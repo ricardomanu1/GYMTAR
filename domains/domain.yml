@@ -23,6 +23,7 @@ intents:
 - identidad
 - identidad_sn
 - identidad_user
+- identificador
 - negar
 - no_solicitar
 - presentacion
@@ -37,6 +38,7 @@ entities:
 - year
 - name
 - day
+- id
 
 slots:  
   hours:
@@ -59,6 +61,12 @@ slots:
       - morning
       - afternoon
       - evening  
+    influence_conversation: true
+  rol:
+    type: categorical    
+    values:
+      - admin
+      - user   
     influence_conversation: true
 
 responses:
@@ -98,6 +106,9 @@ responses:
   - metadata:
       subtext: informar  
     text: Muchas gracias.
+  - metadata:
+      subtext: informar  
+    text: Gracias.
 
 # Animar
   utter_animar:
@@ -448,11 +459,32 @@ responses:
     metadata:
       subtext: saludar 
   - metadata:
-      subtext: informar     
+      subtext: saludar     
     text: Hola {name}
   - metadata:
-      subtext: informar     
+      subtext: saludar     
     text: Hola de nuevo {name}
+  - metadata:
+      subtext: saludar     
+    text: Hola.
+
+# Saludo a una persona conocida
+  utter_rol:
+  - condition:
+      - type: slot
+        name: rol
+        value: "admin"
+    text: "Te doy acceso al menú de administrador"
+    metadata:
+      subtext: informar 
+  - condition:
+      - type: slot
+        name: rol
+        value: "user"
+    text: "¿Quiéres consultar la rutina de ejercicios de hoy?"
+    metadata:
+      subtext: informar 
+
 
 # Pronombre interrogativo
   utter_pronombre_interrogativo:

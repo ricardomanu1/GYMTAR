@@ -3,10 +3,11 @@
     "",
     "\\actions",
     "\\data",
+    "\\DDBB",
     "\\domains",
     "\\EBDI",
     "\\VoiceManager"
   ],
-  "SelectedNode": "\\actions\\actions.py",
+  "SelectedNode": "\\DDBB\\SQL.py",
   "PreviewInSolutionExplorer": false
 }

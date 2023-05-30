@@ -8,6 +8,8 @@ from EBDI.belief_manager import belief_manager
 from EBDI.desires_manager import desires_manager
 from EBDI.intents_manager import intents_manager 
 
+from DDBB.SQL import database 
+
 from os import listdir
 from typing import Any, Text, Dict, List
 
@@ -44,10 +46,15 @@ Desires = desires_manager()
 Intents = intents_manager()
 context = Intents.get_context()
 
+# DDBB
+db = database()
+db.connection()
+
 # Memoria del Bot
 slot_name = ''
 slot_daytime = ''
 slot_avatar = ''
+id_user = 0
 
 # Methods
 def __init__(self):
@@ -113,6 +120,7 @@ class ChatBot(Action):
         global slot_name
         global slot_daytime
         global slot_avatar
+        global id_user
 
         print("--------------------------------------------------------------------------------------------")
 
@@ -123,7 +131,7 @@ class ChatBot(Action):
         entities = tracker.latest_message['entities']
         metadata = tracker.latest_message['metadata']
         ## Slots
-        slot_name = tracker.get_slot('name')      
+        slot_name = tracker.get_slot('name')   
         slot_avatar = tracker.get_slot('avatar')          
         slot_year = tracker.get_slot('year')             
        
@@ -140,7 +148,8 @@ class ChatBot(Action):
                     avatar = 'f'
                 else:
                     avatar = 'm'
-       
+            if e['entity'] == 'id':
+                id_user = e['value']
 
         ## Entradas de Voz       
         if (id_event == 'say'):
@@ -303,6 +312,11 @@ class Plan:
                 if val == 'a_rB':
                     s = "Beliefs.reset_beliefs()"
                     p.append(s)
+
+                if val == 'db_s':
+                    resp = intent[idx+1]
+                    s = "DDBB.run(self, dispatcher, tracker, domain,'{0}')".format(str(resp))
+                    p.append(s)
         return p
 
 ## Acciones ##
@@ -365,6 +379,28 @@ class Kinect():
         watch = True
         watchResponse = response
         return "echo"
+
+class DDBB(Action):
+
+    def name(self) -> Text:
+        return "ddbb"
+
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any],
+            resp) -> List[Dict[Text, Any]]:        
+        global slot_name
+        global id_user
+
+        # Consulta SQL
+        user_name = db.select_name(id_user)
+        if user_name is not None:
+            slot_name = user_name
+            dispatcher.utter_message(
+                name = slot_name)  
+            tracker.get_slot('name')
+
+        return []
 
 ## Salida de las respuestas csv
 class CSV():

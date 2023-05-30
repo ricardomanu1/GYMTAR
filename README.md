@@ -18,6 +18,10 @@ python -m spacy download es_core_news_md
 ```
 pip install nltk
 ```
+## Instalación de base de datos
+```
+conda install -c anaconda mysql-connector-python
+```
 ## Antes de realizar la ejecución, mirar la configuracion personalizada
 
 # Ejecución con API 

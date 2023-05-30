@@ -46,6 +46,9 @@ class intents_manager(object):
         self.intents.append(('say','utter_rutina',['rutina'],'a_say','utter_rutina','a_dB','rutina'))
         self.intents.append(('say','utter_rutina_proxima',['rutina_proxima'],'a_dB','rutina_proxima','a_say','utter_rutina_proxima'))
         self.intents.append(('say','utter_rutina_anterior',['rutina_anterior'],'a_dB','rutina_anterior','a_say','utter_rutina_anterior'))
+        
+        ## Identificador
+        self.intents.append(('say','utter_identificador',['identificador'],'a_dB','identificador','db_s','name','a_say','utter_presentacion'))
 
 
 
@@ -147,6 +150,7 @@ class intents_manager(object):
 
         #self.intents.append(('know', 'isBored', ['isBored'],'a_dB','isBored'))      
         '''
+
         ## User:'hace preguntas básicas'
         self.intents.append(('say','utter_responder_hora',['pregunta_hora'],'a_say','utter_responder_hora','a_dB','pregunta_hora'))
         self.intents.append(('say','utter_responder_dia',['pregunta_dia'],'a_say','utter_responder_dia','a_dB','pregunta_dia'))

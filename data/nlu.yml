@@ -398,6 +398,18 @@ nlu:
     - soy [Xabi](name)
     - soy [Iñigo](name)
     - soy [Joseja](name)
+- intent: identificador
+  examples: |
+    - mi identificador es [101](id)
+    - mi identificador es [102](id)
+    - mi identificador es [103](id)
+    - mi identificador es [104](id)
+    - mi identificador es [105](id)
+    - mi id es [101](id)
+    - mi id es [102](id)
+    - mi id es [103](id)
+    - mi id es [104](id)
+    - mi id es [105](id)
 - intent: saludar  
   examples: |
     - muy buenas.
