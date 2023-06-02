@@ -48,7 +48,8 @@ class intents_manager(object):
         self.intents.append(('say','utter_rutina_anterior',['rutina_anterior'],'a_dB','rutina_anterior','a_say','utter_rutina_anterior'))
         
         ## Identificador
-        self.intents.append(('say','utter_identificador',['identificador'],'a_dB','identificador','db_s','name','a_say','utter_presentacion'))
+        self.intents.append(('say','utter_identificador',['identificador'],'a_dB','identificador','db_s','name','a_say','utter_presentacion','a_say','utter_rol'))
+        ###SI SE CUMPLE EL SQL LLAMAR A UNA NUEVA INTENCION DEPENDIENDO DEL RESULTADO
 
 
 

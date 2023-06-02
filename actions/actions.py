@@ -53,6 +53,7 @@ db.connection()
 # Memoria del Bot
 slot_name = ''
 slot_daytime = ''
+slot_rol = ''
 slot_avatar = ''
 id_user = 0
 
@@ -119,8 +120,10 @@ class ChatBot(Action):
         global inter1
         global slot_name
         global slot_daytime
+        global slot_rol
         global slot_avatar
         global id_user
+        global db
 
         print("--------------------------------------------------------------------------------------------")
 
@@ -138,7 +141,7 @@ class ChatBot(Action):
         Bi = intent['name']
         id_event = metadata['event']
 
-        slot_daytime = part_of_day(int(f"{dt.datetime.now().strftime('%H')}"))       
+        slot_daytime = part_of_day(int(f"{dt.datetime.now().strftime('%H')}"))          
 
         for e in entities:
             print("entidad: {} = {}".format(e['entity'],e['value']))
@@ -150,6 +153,8 @@ class ChatBot(Action):
                     avatar = 'm'
             if e['entity'] == 'id':
                 id_user = e['value']
+                contenido = db.select_rol(id_user)
+                slot_rol = contenido['rol']
 
         ## Entradas de Voz       
         if (id_event == 'say'):
@@ -192,7 +197,7 @@ class ChatBot(Action):
             ## print("Synonyms:", str(synonyms))
             Ricardo_synonyms = synonyms      
         
-        return [SlotSet("daytime", slot_daytime)]
+        return [SlotSet("daytime", slot_daytime),SlotSet("rol", slot_rol)]
 
 ## Estructura EBDI
 class EBDI(Action):
@@ -338,11 +343,13 @@ class Say(Action):
             hours = hours,
             day = day,
             daytime = slot_daytime,
-            name = slot_name)
+            name = slot_name,
+            rol = slot_rol)
 
         contador()
         print("dispatcher: " + str(count))   
         tracker.get_slot('daytime')
+        tracker.get_slot('rol')
 
         return []
 
@@ -362,6 +369,7 @@ class To_Speech(Action):
 
         print('----RESPONSES----')  
         tracker.get_slot('daytime') 
+        tracker.get_slot('rol') 
 
         if count > 0:
             msg = get_latest_event(tracker.applied_events())        
@@ -380,6 +388,8 @@ class Kinect():
         watchResponse = response
         return "echo"
 
+
+## Data Base
 class DDBB(Action):
 
     def name(self) -> Text:
@@ -390,17 +400,21 @@ class DDBB(Action):
             domain: Dict[Text, Any],
             resp) -> List[Dict[Text, Any]]:        
         global slot_name
+        global slot_rol
         global id_user
 
         # Consulta SQL
-        user_name = db.select_name(id_user)
-        if user_name is not None:
-            slot_name = user_name
+        contenido_user = db.select_name(id_user)#dev name and rol
+        if contenido_user is not None:
+            slot_name = contenido_user['name']
+            slot_rol = contenido_user['rol']
             dispatcher.utter_message(
-                name = slot_name)  
+                name = slot_name,
+                rol = slot_rol)  
             tracker.get_slot('name')
-
-        return []
+            tracker.get_slot('rol')
+            print(slot_rol)
+        return [SlotSet("rol", slot_rol)]
 
 ## Salida de las respuestas csv
 class CSV():

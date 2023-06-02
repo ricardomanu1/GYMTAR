@@ -34,6 +34,7 @@ intents:
 entities:
 - avatar
 - daytime
+- rol
 - hours
 - year
 - name
@@ -484,7 +485,9 @@ responses:
     text: "¿Quiéres consultar la rutina de ejercicios de hoy?"
     metadata:
       subtext: informar 
-
+  - metadata:
+      subtext: informar
+    text: no se ha almacenado el rol del usuario.
 
 # Pronombre interrogativo
   utter_pronombre_interrogativo:

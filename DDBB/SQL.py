@@ -24,14 +24,35 @@ class database:
 
     def select_name(self,id):
         # Ejecutar una consulta SELECT
-        consulta = "SELECT name FROM usuarios where IdUser = %s"
+        consulta = "SELECT name,rol FROM usuarios where IdUser = %s"
         # Ejecuta la consulta con el parámetro pasado
         self.cursor.execute(consulta, (id,))
         # Obtiene los resultados
         result = self.cursor.fetchone()
+        contenido_user = {
+            'name': "",
+            'rol': ""
+        }
         if result:
-            contenido = str(result[0])
-            return contenido
+            contenido_user['name'] = str(result[0])
+            contenido_user['rol'] = str(result[1])
+            return contenido_user
+        else:
+            return
+
+    def select_rol(self,id):
+        # Ejecutar una consulta SELECT
+        consulta = "SELECT rol FROM usuarios where IdUser = %s"
+        # Ejecuta la consulta con el parámetro pasado
+        self.cursor.execute(consulta, (id,))
+        # Obtiene los resultados
+        result = self.cursor.fetchone()
+        contenido_user = {
+            'rol': ""
+        }
+        if result:
+            contenido_user['rol'] = str(result[0])
+            return contenido_user
         else:
             return
 
