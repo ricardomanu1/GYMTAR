@@ -23,7 +23,6 @@ intents:
 - identidad
 - identidad_sn
 - identidad_user
-- identificador
 - negar
 - no_solicitar
 - presentacion
@@ -33,16 +32,13 @@ intents:
 
 entities:
 - avatar
-- daytime
-- rol
-- hours
-- year
 - name
-- day
-- id
 
 slots:  
   hours:
+    type: text
+    influence_conversation: true
+  day:
     type: text
     influence_conversation: true
   avatar:
@@ -51,11 +47,6 @@ slots:
   name:
     type: text
     influence_conversation: true
-  year:
-    type: float
-    influence_conversation: true
-    max_value: 2020.0
-    min_value: -1000.0
   daytime:
     type: categorical    
     values:

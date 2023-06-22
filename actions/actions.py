@@ -1,4 +1,5 @@
 import csv, importlib, json, os, typing
+from pickle import NONE
 import datetime as dt
 import xml.etree.cElementTree as ET
 import numpy as np
@@ -38,6 +39,14 @@ inter1 = False
 ## Kinect
 watch = False
 watchResponse = ''
+
+## Interface
+interface = False
+interfaceResponse = ''
+
+## Database
+routine_say = False
+exercises = []
 
 # Gestor EBDI
 Emotions = emotions_manager()
@@ -134,15 +143,26 @@ class ChatBot(Action):
         entities = tracker.latest_message['entities']
         metadata = tracker.latest_message['metadata']
         ## Slots
+        ## Almacenado en memoria
         slot_name = tracker.get_slot('name')   
-        slot_avatar = tracker.get_slot('avatar')          
-        slot_year = tracker.get_slot('year')             
+        slot_avatar = tracker.get_slot('avatar')   
+        slot_rol = tracker.get_slot('rol')   
        
         Bi = intent['name']
         id_event = metadata['event']
 
         slot_daytime = part_of_day(int(f"{dt.datetime.now().strftime('%H')}"))          
 
+        # Metadatas received
+        for key, value in metadata.items():
+            print(key, value)
+            if 'id' in metadata:
+                id_user = metadata['id'] 
+                contenido = db.login(id_user)
+                slot_name = contenido['name']                 
+                slot_rol = contenido['rol']                 
+
+        # Entities received
         for e in entities:
             print("entidad: {} = {}".format(e['entity'],e['value']))
             if e['entity'] == 'avatar':
@@ -151,12 +171,8 @@ class ChatBot(Action):
                     avatar = 'f'
                 else:
                     avatar = 'm'
-            if e['entity'] == 'id':
-                id_user = e['value']
-                contenido = db.select_rol(id_user)
-                slot_rol = contenido['rol']
 
-        ## Entradas de Voz       
+        ## Voice input     
         if (id_event == 'say'):
             if 'emotion' in metadata:
                 Be = metadata['emotion']            
@@ -172,11 +188,7 @@ class ChatBot(Action):
                 
         ## Entradas de conocimiento
         elif (id_event == 'know'):
-            objInterest = None
-            #for key, value in metadata.items():
-            #    print(key, value)
-            #if 'emotion' in metadata:
-            #    slot_emotion = metadata['emotion']           
+            objInterest = None                    
             user_event = [id_event,text,objInterest,'']             
             print('EVENT: ' + str(user_event)) 
             if text in context:
@@ -310,17 +322,21 @@ class Plan:
                     s = "Beliefs.fulfill_belief('{0}')".format(str(intent[idx+1]))
                     p.append(s)
 
-                if val == 'ki':
-                    s = "Kinect.name('{0}')".format(str(intent[idx+1]))
-                    p.append(s)
-
                 if val == 'a_rB':
                     s = "Beliefs.reset_beliefs()"
                     p.append(s)
 
-                if val == 'db_s':
-                    resp = intent[idx+1]
-                    s = "DDBB.run(self, dispatcher, tracker, domain,'{0}')".format(str(resp))
+                # solicitud de camara
+                if val == 'ki':
+                    s = "Kinect.name('{0}')".format(str(intent[idx+1]))
+                    p.append(s)
+                # solicitud de interfaz
+                if val == 'in':
+                    s = "Interface.name('{0}')".format(str(intent[idx+1]))
+                    p.append(s)
+                # solicitud de base de datos
+                if val == 'db':
+                    s = "Database.name('{0}')".format(str(intent[idx+1]))
                     p.append(s)
         return p
 
@@ -388,38 +404,63 @@ class Kinect():
         watchResponse = response
         return "echo"
 
+class Interface():
+    def name(response):
+        global interface
+        global interfaceResponse
+        interface = True
+        interfaceResponse = response
+        return "echo"
 
-## Data Base
-class DDBB(Action):
-
-    def name(self) -> Text:
-        return "ddbb"
-
-    def run(self, dispatcher: CollectingDispatcher,
-            tracker: Tracker,
-            domain: Dict[Text, Any],
-            resp) -> List[Dict[Text, Any]]:        
-        global slot_name
-        global slot_rol
+class Database():
+    def name (response):
         global id_user
+        global slot_name
+        global slot_rol        
+        if response == "login":
+            contenido_user = getattr(db, response)(id_user)
+            if contenido_user is not None:
+                slot_name = contenido_user['name']
+                slot_rol = contenido_user['rol']
+        if response == "select_routine" :
+            id_user = 101
+            date = "2023-06-22"
+            contenido_user = getattr(db, response)(id_user,date)
+            if contenido_user is not None: 
+                Database.routine(contenido_user)
+            else:
+                print("No hay datos para esta fecha")
+        return "echo"
 
-        # Consulta SQL
-        contenido_user = db.select_name(id_user)#dev name and rol
-        if contenido_user is not None:
-            slot_name = contenido_user['name']
-            slot_rol = contenido_user['rol']
-            dispatcher.utter_message(
-                name = slot_name,
-                rol = slot_rol)  
-            tracker.get_slot('name')
-            tracker.get_slot('rol')
-            print(slot_rol)
-        return [SlotSet("rol", slot_rol)]
-
+    def routine(contenido_user):
+        global routine_say
+        global exercises
+        exercises = []
+        routine_say = True        
+        print(contenido_user)       
+        e = contenido_user['ejercicios']
+        e_array = [int(x) for x in e.split(",")]
+        r = contenido_user['repeticiones']        
+        r_array = [int(x) for x in r.split(",")]
+        t = contenido_user['tiempos']        
+        t_array = [int(x) for x in t.split(",")]
+        select_exercise = "select_exercise"
+        for i in range(len(e_array)):                   
+            e_name = getattr(db, select_exercise)(e_array[i])
+            if r_array[i] != 1:
+                new_string = "{} con {} repeticiones de {} segundos.".format(
+                e_name['name'],r_array[i],t_array[i])
+            else:
+                new_string = "{} con {} repetición de {} segundos.".format(
+                e_name['name'],r_array[i],t_array[i])
+            exercises.append(new_string)
+        
 ## Salida de las respuestas csv
 class CSV():
     def name(self,responses):
         global watch, watchResponse
+        global interface, interfaceResponse
+        global routine_say, exercises
         output_csv = open('speech.csv','w+',newline='')
         writer = csv.writer(output_csv, delimiter =',')
         writer.writerow(['action','response','emotion','language','animation','emotionAzure','video','length','avatar'])
@@ -428,17 +469,30 @@ class CSV():
         length = 0
         for response in responses:
             if 'metadata' in response['metadata']:
-                    if 'subtext' in response['metadata']['metadata']:
-                        animation_tag = str(response['metadata']['metadata']['subtext'])
-                    if 'img' in response['metadata']['metadata']:
-                        video = str(response['metadata']['metadata']['img'])
-                    if 'length' in response['metadata']['metadata']:
-                        length = float(response['metadata']['metadata']['length'])
+                if 'subtext' in response['metadata']['metadata']:
+                    animation_tag = str(response['metadata']['metadata']['subtext'])
+                else:
+                    animation_tag = 'informar'
+                if 'img' in response['metadata']['metadata']:
+                    video = str(response['metadata']['metadata']['img'])
+                else:
+                    video = ''
+                if 'length' in response['metadata']['metadata']:
+                    length = float(response['metadata']['metadata']['length'])
+                else:
+                    length = 0
             print(' -' + str(response['text']))
             writer.writerow(['say',str(response['text']), str(Emotions.estado),lang,animation_tag,str(Emotions.tag()),str(video),length,avatar])
         if(watch):
             writer.writerow(['watch',str(watchResponse)])
             watch = False
+        elif(interface):
+            writer.writerow(['interface',str(interfaceResponse)])
+            interface = False
+        elif(routine_say):
+            for exercise in exercises:
+                writer.writerow(['say',str(exercise), str(Emotions.estado),lang,animation_tag,str(Emotions.tag()),str(video),length,avatar])
+            routine_say = False
         else:
             writer.writerow(['listen'])
         output_csv.close()

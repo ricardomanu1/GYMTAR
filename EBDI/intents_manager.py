@@ -30,7 +30,8 @@ class intents_manager(object):
 
         ## Identidad user
         self.intents.append(('say','utter_identidad_user',['identidad_user'],'a_dB','identidad_user','a_say','utter_identidad_user'))
-  
+
+
         ## User:'me ha dicho como se siente'
         self.intents.append(('say','utter_empatizar_bien',['estado_bien'],'a_say','utter_empatizar_bien','a_dB','estado_bien'))
         self.intents.append(('say','utter_empatizar_mal',['estado_mal'],'a_say','utter_empatizar_mal','a_dB','estado_mal'))
@@ -43,13 +44,12 @@ class intents_manager(object):
         self.intents.append(('say','utter_empatizar_emocion',['estado_emocion'],'a_say','utter_empatizar_emocion','a_dB','estado_emocion'))
         
         ## Rutina
-        self.intents.append(('say','utter_rutina',['rutina'],'a_say','utter_rutina','a_dB','rutina'))
+        self.intents.append(('say','utter_rutina',['rutina'],'a_say','utter_rutina','a_dB','rutina','db','select_routine'))
         self.intents.append(('say','utter_rutina_proxima',['rutina_proxima'],'a_dB','rutina_proxima','a_say','utter_rutina_proxima'))
         self.intents.append(('say','utter_rutina_anterior',['rutina_anterior'],'a_dB','rutina_anterior','a_say','utter_rutina_anterior'))
         
-        ## Identificador
-        self.intents.append(('say','utter_identificador',['identificador'],'a_dB','identificador','db_s','name','a_say','utter_presentacion','a_say','utter_rol'))
-        ###SI SE CUMPLE EL SQL LLAMAR A UNA NUEVA INTENCION DEPENDIENDO DEL RESULTADO
+        self.intents.append(('say','atender', ['atender','he_preguntado_si_no', 'afirmar'],'a_dB','he_preguntado_si_no','a_dB','attender', 'a_dB','afirmar','a_say', 'utter_afirmativo')) 
+        self.intents.append(('say','atender', ['atender','he_preguntado_si_no', 'negar'],'a_dB','he_preguntado_si_no','a_dB','attender', 'a_dB','negar','a_say', 'utter_solicitar')) 
 
 
 
@@ -125,7 +125,7 @@ class intents_manager(object):
 
         ## self.intents.append(('know', 'entra_grupo', ['entra_grupo'],'a_fB','entra_grupo','a_nB','saludar'))
         ## self.intents.append(('know', 'entra_grupo', ['entra_grupo'],'a_fB','entra_grupo','a_say','utter_bienvenida','a_say','utter_mirar','ki','k_observar'))
-        self.intents.append(('know', 'entra_grupo', ['entra_grupo'],'a_fB','entra_grupo','a_say','utter_bienvenida','a_say','utter_identidad','a_say','utter_agradecimiento','a_nB', 'vinet_intro'))
+        
 
         # INTRODUCCION
         self.intents.append(('say','utter_intro',['vinet_intro'],'a_dB','vinet_intro','a_say','utter_intro1','a_say','utter_intro2','a_say','utter_intro3','a_nB','saber_portus'))
@@ -151,7 +151,21 @@ class intents_manager(object):
 
         #self.intents.append(('know', 'isBored', ['isBored'],'a_dB','isBored'))      
         '''
+        ## instrucciones Gymtar Interface
 
+        self.intents.append(('know','inicio',['inicio'],'a_fB','inicio','a_say','utter_saludar','a_say','utter_solicitar','in','i_inicio'))
+      
+        self.intents.append(('say','utter_login',['login'],'a_say','utter_login','a_dB','login','in','i_login'))
+        self.intents.append(('say','utter_register',['register'],'a_say','utter_register','a_dB','register','in','i_register'))
+        
+        self.intents.append(('know','login',['login'],'a_dB','login','db','login','a_say','utter_interes','a_nB','espero_respuesta'))
+        
+        self.intents.append(('know','register',['register'],'a_dB','register','a_say','utter_registro'))
+  
+
+
+
+       
         ## User:'hace preguntas básicas'
         self.intents.append(('say','utter_responder_hora',['pregunta_hora'],'a_say','utter_responder_hora','a_dB','pregunta_hora'))
         self.intents.append(('say','utter_responder_dia',['pregunta_dia'],'a_say','utter_responder_dia','a_dB','pregunta_dia'))

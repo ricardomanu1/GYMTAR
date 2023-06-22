@@ -148,6 +148,7 @@ while True:
                     if External_file:
                         output_Unreal.close()
                     output_csv.close() 
+                    
                     if(duration < length):
                         if priority:
                             time.sleep(length)   
@@ -169,5 +170,11 @@ while True:
                     output.write('\n'.join(lines))
                     output.close()
                     print("Accion: reconocer zona")
+                elif(str(row['action'])=="interface"):
+                    output = open("..//..//Interface.txt","w")
+                    lines = [str(row['response'])]
+                    output.write('\n'.join(lines))
+                    output.close()
+                    print("Accion: abrir interface")
         os.remove('..\\speech.csv')        
         print("--- %s seconds ---" % (time.time() - start_time))

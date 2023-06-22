@@ -22,42 +22,78 @@ class database:
         except mysql.connector.Error as error:
             print(f'Error al conectar a la base de datos: {error}')
 
-    def select_name(self,id):
-        # Ejecutar una consulta SELECT
-        consulta = "SELECT name,rol FROM usuarios where IdUser = %s"
-        # Ejecuta la consulta con el parámetro pasado
-        self.cursor.execute(consulta, (id,))
-        # Obtiene los resultados
-        result = self.cursor.fetchone()
-        contenido_user = {
-            'name': "",
-            'rol': ""
-        }
-        if result:
-            contenido_user['name'] = str(result[0])
-            contenido_user['rol'] = str(result[1])
-            return contenido_user
-        else:
-            return
-
-    def select_rol(self,id):
-        # Ejecutar una consulta SELECT
-        consulta = "SELECT rol FROM usuarios where IdUser = %s"
-        # Ejecuta la consulta con el parámetro pasado
-        self.cursor.execute(consulta, (id,))
-        # Obtiene los resultados
-        result = self.cursor.fetchone()
-        contenido_user = {
-            'rol': ""
-        }
-        if result:
-            contenido_user['rol'] = str(result[0])
-            return contenido_user
-        else:
-            return
-
     def disconnection(self):
         # Cierra el cursor
         self.cursor.close()
         if self.conn.is_connected():
             self.conn.close()
+
+    def login(self,id):
+        if id is None:
+            print("No hay datos")
+            return
+        else:
+            #print("hay datos")
+            # Ejecutar una consulta SELECT
+            consulta = "SELECT name,rol FROM usuarios where IdUser = %s"
+            # Ejecuta la consulta con el parámetro pasado
+            self.cursor.execute(consulta, (id,))
+            # Obtiene los resultados
+            result = self.cursor.fetchone()
+            contenido_user = {
+                'name': "",
+                'rol': ""
+            }
+            if result:
+                contenido_user['name'] = str(result[0])
+                contenido_user['rol'] = str(result[1])
+                return contenido_user
+            else:
+                return
+
+    def select_routine(self,id,date):
+        if id is None:
+            print("No hay datos")
+            return
+        else:
+            #print("hay datos")
+            # Ejecutar una consulta SELECT
+            consulta = "SELECT Ejercicios,Repeticiones,Tiempo FROM rutina where IdUser = %s AND Fecha =%s"
+            # Ejecuta la consulta con el parámetro pasado
+            self.cursor.execute(consulta, (id,date))
+            # Obtiene los resultados
+            result = self.cursor.fetchone()
+            contenido_user = {
+                'ejercicios': "",
+                'repeticiones': "",
+                'tiempos': ""
+            }
+            if result:
+                contenido_user['ejercicios'] = str(result[0])
+                contenido_user['repeticiones'] = str(result[1])
+                contenido_user['tiempos'] = str(result[2])
+                return contenido_user
+            else:
+                return
+
+    def select_exercise(self,id):
+        if id is None:
+            print("No hay datos")
+            return
+        else:
+            #print("hay datos")
+            # Ejecutar una consulta SELECT
+            consulta = "SELECT Name FROM ejercicios where IdExercise = %s"
+            # Ejecuta la consulta con el parámetro pasado
+            self.cursor.execute(consulta, (id,))
+            # Obtiene los resultados
+            result = self.cursor.fetchone()
+            contenido_user = {
+                'name': ""
+            }
+            if result:
+                contenido_user['name'] = str(result[0])
+                return contenido_user
+            else:
+                return
+        

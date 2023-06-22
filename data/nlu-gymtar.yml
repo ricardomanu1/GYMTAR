@@ -5,11 +5,25 @@ nlu:
     - ¿Qué rutina tengo hoy?
     - ¿Qué toca hoy?
     - ¿Cuál es el entrenamiento de hoy?
+
 - intent: rutina_proxima
   examples: |
     - ¿Cuales seran mis próximas rutina?
     - ¿Qué tocara hacer estos días?
+
 - intent: rutina_anterior
   examples: |
     - ¿Cuál fue mi úlima rutina?
     - ¿Qué fue lo último que hice?
+
+- intent: register
+  examples: |
+    - Quiero registrarme
+    - Quiero realizar el registro
+    - registro
+
+- intent: login
+  examples: |
+    - Quiero iniciar sesión
+    - Inicio de sesión
+    - Login

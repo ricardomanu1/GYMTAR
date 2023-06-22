@@ -38,12 +38,6 @@ stories:
   - action: chatbot
   - action: to_speech
 
-- story: preguntar_cuando_fecha path
-  steps:
-  - intent: preguntar_cuando_fecha
-  - action: chatbot
-  - action: to_speech
-
 - story: preguntar_donde path
   steps:
   - intent: preguntar_donde

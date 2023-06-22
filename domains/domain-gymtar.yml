@@ -6,12 +6,15 @@ intents:
 - rutina
 - rutina_proxima
 - rutina_anterior
+- register
+- login
 
 responses:
   utter_rutina:
   - metadata:
       subtext: informar     
     text: Tienes esta rutina
+
   - metadata:
       subtext: informar     
     text: Hoy toca hacer esto
@@ -25,3 +28,13 @@ responses:
   - metadata:
       subtext: informar     
     text: Tuviste esta rutina
+
+  utter_register:
+  - metadata:
+      subtext: informar     
+    text: Abriendo interfaz de registro
+
+  utter_login:
+  - metadata:
+      subtext: informar     
+    text: Abriendo interfaz de inicio de sesión
