@@ -8,6 +8,13 @@ intents:
 - rutina_anterior
 - register
 - login
+slots:  
+  data:
+    type: categorical    
+    values:
+      - data
+      - nodata   
+    influence_conversation: true
 
 responses:
   utter_rutina:
@@ -18,6 +25,14 @@ responses:
   - metadata:
       subtext: informar     
     text: Hoy toca hacer esto
+
+  - condition:
+      - type: slot
+        name: data
+        value: "nodata"
+    text: "No hay resultados."
+    metadata:
+      subtext: informar 
 
   utter_rutina_proxima:
   - metadata:

@@ -61,6 +61,7 @@ db.connection()
 
 # Memoria del Bot
 slot_name = ''
+slot_data = ''
 slot_daytime = ''
 slot_rol = ''
 slot_avatar = ''
@@ -209,7 +210,7 @@ class ChatBot(Action):
             ## print("Synonyms:", str(synonyms))
             Ricardo_synonyms = synonyms      
         
-        return [SlotSet("daytime", slot_daytime),SlotSet("rol", slot_rol)]
+        return [SlotSet("daytime", slot_daytime),SlotSet("rol", slot_rol),SlotSet("data", slot_data)]
 
 ## Estructura EBDI
 class EBDI(Action):
@@ -350,7 +351,6 @@ class Say(Action):
             tracker: Tracker,
             domain: Dict[Text, Any],
             resp) -> List[Dict[Text, Any]]:
-
         hours = str(f"{dt.datetime.now().strftime('%H:%M')}")
         day = the_day(str(f"{dt.datetime.now().strftime('%A')}"))
 
@@ -360,10 +360,12 @@ class Say(Action):
             day = day,
             daytime = slot_daytime,
             name = slot_name,
-            rol = slot_rol)
+            rol = slot_rol,
+            data = slot_data)
 
         contador()
         print("dispatcher: " + str(count))   
+        print("slot_data:" + slot_data)   
         tracker.get_slot('daytime')
         tracker.get_slot('rol')
 
@@ -417,19 +419,41 @@ class Database():
         global id_user
         global slot_name
         global slot_rol        
+        global slot_data 
         if response == "login":
             contenido_user = getattr(db, response)(id_user)
             if contenido_user is not None:
                 slot_name = contenido_user['name']
                 slot_rol = contenido_user['rol']
-        if response == "select_routine" :
-            id_user = 101
-            date = "2023-06-22"
-            contenido_user = getattr(db, response)(id_user,date)
+        if response == "select_routine" :           
+            now = dt.datetime.now()
+            date = now.strftime("%Y-%m-%d")
+            contenido_user = getattr(db, "select_routine")(id_user,date)
             if contenido_user is not None: 
                 Database.routine(contenido_user)
             else:
                 print("No hay datos para esta fecha")
+                slot_data = "nodata"
+        if response == "select_next_routine" :           
+            now = dt.datetime.now()
+            next_day = now + dt.timedelta(days=1)
+            date = next_day.strftime("%Y-%m-%d")
+            contenido_user = getattr(db, "select_routine")(id_user,date)
+            if contenido_user is not None: 
+                Database.routine(contenido_user)
+            else:
+                print("No hay datos para esta fecha")
+                slot_data = "nodata"
+        if response == "select_previous_routine" :           
+            now = dt.datetime.now()
+            previous_day = now - dt.timedelta(days=1)
+            date = previous_day.strftime("%Y-%m-%d")
+            contenido_user = getattr(db, "select_routine")(id_user,date)
+            if contenido_user is not None: 
+                Database.routine(contenido_user)
+            else:
+                print("No hay datos para esta fecha")
+                slot_data = "nodata"
         return "echo"
 
     def routine(contenido_user):
