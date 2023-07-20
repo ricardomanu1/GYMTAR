@@ -26,36 +26,6 @@ stories:
   - action: chatbot
   - action: to_speech
 
-- story: preguntar_como path
-  steps:
-  - intent: preguntar_como
-  - action: chatbot
-  - action: to_speech
-
-- story: preguntar_cuando path
-  steps:
-  - intent: preguntar_cuando
-  - action: chatbot
-  - action: to_speech
-
-- story: preguntar_donde path
-  steps:
-  - intent: preguntar_donde
-  - action: chatbot
-  - action: to_speech
-
-- story: preguntar_por_que_path
-  steps:
-  - intent: preguntar_por_que
-  - action: chatbot
-  - action: to_speech
-
-- story: preguntar_quien_path
-  steps:
-  - intent: preguntar_quien
-  - action: chatbot
-  - action: to_speech
-
 - story: cantidad_path
   steps:
   - intent: cantidad
@@ -161,12 +131,6 @@ stories:
 - story: saludar_path
   steps:
   - intent: saludar
-  - action: chatbot
-  - action: to_speech
-
-- story: ubicarme_path
-  steps:
-  - intent: ubicarme
   - action: chatbot
   - action: to_speech
 

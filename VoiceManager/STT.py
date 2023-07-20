@@ -134,6 +134,7 @@ while True:
                     print("Input: {} <{}>".format(result.text,emotion))
                     if (str(result.text) == 'Apagar sistema.'):
                         print("Apagando sistema...")
+                        os.remove('listening.txt')
                         break
                     # System to detect polarity from audio (positive,negative,neutral)
                     sentiment_analysis = Sentiment.sentiment(result.text,detected_src_lang[0:2])

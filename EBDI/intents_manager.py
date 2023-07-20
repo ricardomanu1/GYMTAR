@@ -35,12 +35,7 @@ class intents_manager(object):
         ## User:'me ha dicho como se siente'
         self.intents.append(('say','utter_empatizar_bien',['estado_bien'],'a_say','utter_empatizar_bien','a_dB','estado_bien'))
         self.intents.append(('say','utter_empatizar_mal',['estado_mal'],'a_say','utter_empatizar_mal','a_dB','estado_mal'))
-        self.intents.append(('say','utter_empatizar_aburrimiento',['estado_aburrimiento'],'a_say','utter_empatizar_aburrimiento','a_dB','estado_aburrimiento'))
         self.intents.append(('say','utter_empatizar_cansancio',['estado_cansancio'],'a_say','utter_empatizar_cansancio','a_dB','estado_cansancio'))
-        self.intents.append(('say','utter_empatizar_enfado',['estado_enfado'],'a_say','utter_empatizar_enfado','a_dB','estado_enfado'))
-        self.intents.append(('say','utter_empatizar_miedo',['estado_miedo'],'a_say','utter_empatizar_miedo','a_dB','estado_miedo'))
-        self.intents.append(('say','utter_empatizar_nerviosismo',['estado_nerviosismo'],'a_say','utter_empatizar_nerviosismo','a_dB','estado_nerviosismo'))
-        self.intents.append(('say','utter_empatizar_soledad',['estado_soledad'],'a_say','utter_empatizar_soledad','a_dB','estado_soledad'))
         self.intents.append(('say','utter_empatizar_emocion',['estado_emocion'],'a_say','utter_empatizar_emocion','a_dB','estado_emocion'))
         
         ## Rutina
@@ -50,44 +45,8 @@ class intents_manager(object):
         
         self.intents.append(('say','atender', ['atender','he_preguntado_si_no', 'afirmar'],'a_dB','he_preguntado_si_no','a_dB','attender', 'a_dB','afirmar','a_say', 'utter_afirmativo')) 
         self.intents.append(('say','atender', ['atender','he_preguntado_si_no', 'negar'],'a_dB','he_preguntado_si_no','a_dB','attender', 'a_dB','negar','a_say', 'utter_solicitar')) 
-
-
-
-        '''   
-        self.intents.append(('say','utter_saludar',['saludar','sad'],'a_say','utter_saludar','a_dB','saludar'))
-        ## User:'como crees que me siento?'
-        self.intents.append(('say','utter_estado_bien',['analizame','isHappy'],'a_say','utter_estado_bien','a_dB','analizame'))
-        self.intents.append(('say','utter_estado_mal',['analizame','isSad'],'a_say','utter_estado_mal','a_dB','analizame'))
-        self.intents.append(('say','utter_estado_enfado',['analizame','isAnger'],'a_say','utter_estado_enfado','a_dB','analizame'))
-        self.intents.append(('say','utter_estado_miedo',['analizame','isFear'],'a_say','utter_estado_miedo','a_dB','empatizar'))
-        self.intents.append(('say','utter_estado_nerviosismo',['analizame','isAnxious'],'a_say','utter_estado_nerviosismo','a_dB','analizame'))
-        self.intents.append(('say','utter_estado_aburrimiento',['analizame','isBored'],'a_say','utter_estado_aburrimiento','a_dB','analizame'))
-        self.intents.append(('say','utter_estado_emocion',['analizame','isSurprise'],'a_say','utter_estado_emocion','a_dB','analizame'))
-        self.intents.append(('say','utter_estado_soledad',['analizame','isLonely'],'a_say','utter_estado_soledad','a_dB','analizame'))
-        self.intents.append(('say','utter_estado_cansancio',['analizame','isTired'],'a_say','utter_estado_cansancio','a_dB','analizame'))
-        ## User:'me pregunta si estoy bien'
-        self.intents.append(('say','utter_afirmar',['empatizar_bien','happy'],'a_say','utter_afirmar','a_dB','empatizar_bien'))
-        self.intents.append(('say','utter_negar',['empatizar_bien','sad'],'a_say','utter_negar','a_dB','empatizar_bien'))
         
-        ## User:'me agradece'
-        self.intents.append(('say','utter_agradecer',['agradecer'],'a_say','utter_agradecer','a_fB','agradecer'))
-        ## User:'me ha dicho como se siente'
-        self.intents.append(('say','utter_empatizar_bien',['estado_bien'],'a_say','utter_empatizar_bien','a_dB','estado_bien'))
-        self.intents.append(('say','utter_empatizar_mal',['estado_mal'],'a_say','utter_empatizar_mal','a_dB','estado_mal'))
-        self.intents.append(('say','utter_empatizar_aburrimiento',['estado_aburrimiento'],'a_say','utter_empatizar_aburrimiento','a_dB','estado_aburrimiento'))
-        self.intents.append(('say','utter_empatizar_cansancio',['estado_cansancio'],'a_say','utter_empatizar_cansancio','a_dB','estado_cansancio'))
-        self.intents.append(('say','utter_empatizar_enfado',['estado_enfado'],'a_say','utter_empatizar_enfado','a_dB','estado_enfado'))
-        self.intents.append(('say','utter_empatizar_miedo',['estado_miedo'],'a_say','utter_empatizar_miedo','a_dB','estado_miedo'))
-        self.intents.append(('say','utter_empatizar_nerviosismo',['estado_nerviosismo'],'a_say','utter_empatizar_nerviosismo','a_dB','estado_nerviosismo'))
-        self.intents.append(('say','utter_empatizar_soledad',['estado_soledad'],'a_say','utter_empatizar_soledad','a_dB','estado_soledad'))
-        self.intents.append(('say','utter_empatizar_emocion',['estado_emocion'],'a_say','utter_empatizar_emocion','a_dB','estado_emocion'))
-
-        ## YO muestro interes por el usuario
-        self.intents.append(('say','utter_interes',['muestro_interes'],'a_dB','muestro_interes','a_say','utter_interes'))
-
-        self.intents.append(('say','utter_empatizar_aburrimiento',['espero_respuesta','estado_aburrimiento'],'a_dB','espero_respuesta','a_say','utter_empatizar_aburrimiento'))
-        ## YO intervengo en el estado de animo del usuario
-        self.intents.append(('say','utter_animar',['le_animo'],'a_dB','le_animo','a_say','utter_animar','a_nB','he_preguntado_si_no','a_nB','utter_animar'))
+        '''   
         ## YO pregunto al usuario 
         self.intents.append(('say','utter_preguntar', ['le_pregunto'], 'a_say', 'utter_preguntar','a_fB','le_pregunto','a_nB','he_preguntado')) 
         self.intents.append(('say','utter_solicitar', ['utter_animar','he_preguntado_si_no', 'afirmar'],'a_dB','he_preguntado_si_no','a_dB','utter_animar', 'a_dB','afirmar','a_say', 'utter_solicitar','a_nB','he_solicitado')) 
@@ -161,20 +120,10 @@ class intents_manager(object):
         self.intents.append(('know','login',['login'],'a_dB','login','db','login','a_say','utter_interes','a_nB','espero_respuesta'))
         
         self.intents.append(('know','register',['register'],'a_dB','register','a_say','utter_registro'))
-  
-
-
-
-       
+   
         ## User:'hace preguntas básicas'
         self.intents.append(('say','utter_responder_hora',['pregunta_hora'],'a_say','utter_responder_hora','a_dB','pregunta_hora'))
         self.intents.append(('say','utter_responder_dia',['pregunta_dia'],'a_say','utter_responder_dia','a_dB','pregunta_dia'))
-        self.intents.append(('say','utter_preguntar_cuando',['preguntar_cuando'],'a_say','utter_preguntar_cuando','a_dB','preguntar_cuando'))
-        self.intents.append(('say','utter_preguntar_por_que',['preguntar_por_que'],'a_say','utter_preguntar_por_que','a_dB','preguntar_por_que'))
-        self.intents.append(('say','utter_preguntar_quien',['preguntar_quien'],'a_say','utter_preguntar_quien','a_dB','preguntar_quien'))
-        self.intents.append(('say','utter_preguntar_donde',['preguntar_donde'],'a_say','utter_preguntar_donde','a_dB','preguntar_donde'))
-        self.intents.append(('say','utter_preguntar_como',['preguntar_como'],'a_say', 'utter_preguntar_como','a_dB','preguntar_como'))
-        self.intents.append(('say','utter_ubicarme',['ubicarme'],'a_say','utter_ubicarme','a_dB','ubicarme'))
         ## User:'se despide'
         self.intents.append(('say','utter_despedir',['despedir'],'a_dB','saludar','a_dB','despedir','a_say','utter_despedir')) 
 
@@ -241,18 +190,3 @@ class intents_manager(object):
         context_intents = [x[2] for x in self.intents]        
         context = set(np.concatenate(context_intents))
         return context
-
-#intents
-#i_tuple = ('','',[,],''...)
-
-# REGLAS
-# say saludar: saludo happy -> utter_saludar say interes
-# say interes: true -> utter_interes
-# say empatizar_bien: interes estado_bien -> utter_empatizar_bien new_belief preguntar
-# say empatizar_mal: interes estado_mal -> utter_empatizar_mal new_belief preguntar
-# say preguntar: true -> utter_preguntar
-
-# say empatizar empatizado happy utter_empatizar_bien
-# say empatizar empatizado sad utter_empatizar_mal
-# 
-

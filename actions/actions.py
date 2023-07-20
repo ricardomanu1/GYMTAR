@@ -61,7 +61,7 @@ db.connection()
 
 # Memoria del Bot
 slot_name = ''
-slot_data = ''
+slot_data = 'nodata'
 slot_daytime = ''
 slot_rol = ''
 slot_avatar = ''
@@ -517,6 +517,7 @@ class CSV():
             for exercise in exercises:
                 writer.writerow(['say',str(exercise), str(Emotions.estado),lang,animation_tag,str(Emotions.tag()),str(video),length,avatar])
             routine_say = False
+            writer.writerow(['listen'])
         else:
             writer.writerow(['listen'])
         output_csv.close()

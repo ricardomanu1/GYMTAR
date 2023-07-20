@@ -26,6 +26,8 @@ intents:
 - negar
 - no_solicitar
 - presentacion
+- pregunta_hora
+- pregunta_dia
 - saludar
 - silencio
 - out_of_scope
@@ -93,7 +95,7 @@ responses:
       subtext: informar     
     text: Estupendo.
 
-# agradecimientos por la visita
+# agradecimientos
   utter_agradecimiento:
   - metadata:
       subtext: informar  
@@ -244,6 +246,9 @@ responses:
   - metadata:
       subtext: informar     
     text: Alimentate bien para recuperar las energías.
+  - metadata:
+      subtext: informar     
+    text: ¿Quieres descansar?.
 
 # Empatizar a la emocion
   utter_empatizar_emocion:

@@ -8,6 +8,7 @@ intents:
 - rutina_anterior
 - register
 - login
+- iniciar_rutina
 slots:  
   data:
     type: categorical    

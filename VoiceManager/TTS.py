@@ -148,7 +148,7 @@ while True:
                     if External_file:
                         output_Unreal.close()
                     output_csv.close() 
-                    
+                    '''
                     if(duration < length):
                         if priority:
                             time.sleep(length)   
@@ -159,7 +159,8 @@ while True:
                     elif (duration<3):
                         time.sleep(3)
                     else:
-                        time.sleep(duration)                     
+                        time.sleep(duration)       
+                    '''
                 elif(str(row['action'])=="listen"):
                     archi1 = open("listening.txt","w") 
                     archi1.close()                     
