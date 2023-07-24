@@ -210,7 +210,7 @@ class ChatBot(Action):
             ## print("Synonyms:", str(synonyms))
             Ricardo_synonyms = synonyms      
         
-        return [SlotSet("daytime", slot_daytime),SlotSet("rol", slot_rol),SlotSet("data", slot_data)]
+        return [SlotSet("daytime", slot_daytime),SlotSet("rol", slot_rol),SlotSet("data", slot_data),SlotSet("avatar", slot_avatar)]
 
 ## Estructura EBDI
 class EBDI(Action):
@@ -339,6 +339,10 @@ class Plan:
                 if val == 'db':
                     s = "Database.name('{0}')".format(str(intent[idx+1]))
                     p.append(s)
+                # 
+                if val == 'co':
+                    s = "Coach.name('{0}')".format(str(intent[idx+1]))
+                    p.append(s)
         return p
 
 ## Acciones ##
@@ -361,13 +365,15 @@ class Say(Action):
             daytime = slot_daytime,
             name = slot_name,
             rol = slot_rol,
-            data = slot_data)
+            data = slot_data,
+            avatar = slot_avatar)
 
         contador()
         print("dispatcher: " + str(count))   
         print("slot_data:" + slot_data)   
         tracker.get_slot('daytime')
         tracker.get_slot('rol')
+        tracker.get_slot('avatar')
 
         return []
 
@@ -479,6 +485,12 @@ class Database():
                 e_name['name'],r_array[i],t_array[i])
             exercises.append(new_string)
         
+class Coach():
+    def name (response):
+        global slot_avatar
+        slot_avatar = "m"
+        print("hola")
+
 ## Salida de las respuestas csv
 class CSV():
     def name(self,responses):

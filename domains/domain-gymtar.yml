@@ -54,3 +54,8 @@ responses:
   - metadata:
       subtext: informar     
     text: Abriendo interfaz de inicio de sesión
+
+  utter_iniciar_rutina:
+  - metadata:
+      subtext: informar     
+    text: Pase a la siguiente sala para realizar la rutina de hoy

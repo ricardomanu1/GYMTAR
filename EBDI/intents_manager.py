@@ -46,6 +46,9 @@ class intents_manager(object):
         self.intents.append(('say','atender', ['atender','he_preguntado_si_no', 'afirmar'],'a_dB','he_preguntado_si_no','a_dB','attender', 'a_dB','afirmar','a_say', 'utter_afirmativo')) 
         self.intents.append(('say','atender', ['atender','he_preguntado_si_no', 'negar'],'a_dB','he_preguntado_si_no','a_dB','attender', 'a_dB','negar','a_say', 'utter_solicitar')) 
         
+        ## 
+        self.intents.append(('say','utter_iniciar_rutina',['iniciar_rutina'],'a_say','utter_iniciar_rutina','co','Carlos'))
+
         '''   
         ## YO pregunto al usuario 
         self.intents.append(('say','utter_preguntar', ['le_pregunto'], 'a_say', 'utter_preguntar','a_fB','le_pregunto','a_nB','he_preguntado')) 
