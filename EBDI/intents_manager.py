@@ -18,6 +18,7 @@ class intents_manager(object):
         ## User: me saluda        
         self.intents.append(('say','utter_saludar',['saludar'],'a_say','utter_saludar','a_dB','saludar'))
         self.intents.append(('say','utter_saludar',['saludar','happy'],'a_say','utter_saludar','a_dB','saludar'))
+        
         ## User: se presenta
         self.intents.append(('say','utter_presentacion',['presentacion'],'a_dB','presentacion','a_say','utter_interes','a_nB','espero_respuesta'))
         
@@ -30,8 +31,7 @@ class intents_manager(object):
 
         ## Identidad user
         self.intents.append(('say','utter_identidad_user',['identidad_user'],'a_dB','identidad_user','a_say','utter_identidad_user'))
-
-
+        
         ## User:'me ha dicho como se siente'
         self.intents.append(('say','utter_empatizar_bien',['estado_bien'],'a_say','utter_empatizar_bien','a_dB','estado_bien'))
         self.intents.append(('say','utter_empatizar_mal',['estado_mal'],'a_say','utter_empatizar_mal','a_dB','estado_mal'))
@@ -42,7 +42,6 @@ class intents_manager(object):
         self.intents.append(('say','utter_rutina',['rutina'],'a_say','utter_rutina','a_dB','rutina','db','select_routine'))
         self.intents.append(('say','utter_rutina_proxima',['rutina_proxima'],'a_dB','rutina_proxima','a_say','utter_rutina_proxima','db','select_next_routine'))
         self.intents.append(('say','utter_rutina_anterior',['rutina_anterior'],'a_dB','rutina_anterior','a_say','utter_rutina_anterior','db','select_previous_routine'))
-        
         self.intents.append(('say','atender', ['atender','he_preguntado_si_no', 'afirmar'],'a_dB','he_preguntado_si_no','a_dB','attender', 'a_dB','afirmar','a_say', 'utter_afirmativo')) 
         self.intents.append(('say','atender', ['atender','he_preguntado_si_no', 'negar'],'a_dB','he_preguntado_si_no','a_dB','attender', 'a_dB','negar','a_say', 'utter_solicitar')) 
         

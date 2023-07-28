@@ -396,8 +396,7 @@ class To_Speech(Action):
         tracker.get_slot('rol') 
 
         if count > 0:
-            msg = get_latest_event(tracker.applied_events())        
-            #print(json.dumps(msg[-count:], indent=4))
+            msg = get_latest_event(tracker.applied_events())     
             responses = msg[-count:]  
             CSV().name(responses) 
         count = 0
@@ -489,7 +488,7 @@ class Coach():
     def name (response):
         global slot_avatar
         slot_avatar = "m"
-        print("hola")
+        print("Cambio de Voz")
 
 ## Salida de las respuestas csv
 class CSV():
@@ -547,70 +546,6 @@ class Dictionary:
                 for item in json.loads(nlu_md_json)['rasa_nlu_data']['entity_synonyms']:
                     result_dict[item['value']] = item['synonyms']
         return result_dict
-
-
-class You_are(Action):
-    def name(self) -> Text:
-        return "you_are"
-    def run(self, dispatcher: CollectingDispatcher,
-            tracker: Tracker,
-            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:        
-        entities = tracker.latest_message['entities']
-        slot_name = tracker.get_slot('name')
-        print(entities)
-
-        message = "Hola, encantado de conocerte!"
-
-        for e in entities:
-            if e['entity'] == 'name':
-                name = e['value']
-            if name == "ricardo":
-                message = "Hey " + slot_name + ", que tal?"                
-            if name == "amalia":
-                message = "Hola Amalia, yo soy el sargento David Robertson, encantado"
-        tag = "cheerful" 
-        xml = XML()
-        XML.name(xml,message,tag)
-        dispatcher.utter_message(text=message)
-        return []
-
-class Info_fecha(Action):
-
-    def name(self) -> Text:
-        return "info_fecha"
-    def run (self, dispatcher: CollectingDispatcher,
-             tracker: Tracker,
-             domain: Dict[Text,Any]) -> List[Dict[Text, Any]]:        
-        entities = tracker.latest_message['entities']
-        message = 'Lo siento, no he encontrado nada relacionado con esa fecha'
-        for e in entities:
-            if e['entity'] == 'fecha':
-                fecha = e['value']
-                if fecha == '1350':
-                    message = "Antoine de le Puy, peregrino a santiago y alcanza a oir el sonido de una campana entre la niebla mientras desciende de la montania"
-                if fecha == '1813':
-                    message = "Tengo informacion sobre unos soldados que durante la guerra de independencia Española se encargaban de vigilar la frontera con Francia"
-        dispatcher.utter_message(text=message)
-        return []
-
-class Buscar_informacion(Action):
-
-    def name(self) -> Text:
-        return "buscar_informacion"
-    def run (self, dispatcher: CollectingDispatcher,
-             tracker: Tracker,
-             domain: Dict[Text,Any]) -> List[Dict[Text, Any]]:  
-        print("Accediendo a informacion...")
-        """ acceder a slot values, ahi se encuentra la fecha """
-        slot_fecha = tracker.get_slot('fecha')
-        print(slot_fecha)
-        message = 'Error, informacion NO localizada'
-        if slot_fecha == '1350':
-            message = "Escuchad companieros el sonido de la campana! Roncesvalles ya esta al alcance y podremos..."
-        if slot_fecha == '1813':
-            message = "...A principios de octubre la nieve cayo en tal cantidad como no habia visto en Escocia. Casi perdimos..."
-        dispatcher.utter_message(text=message)
-        return []
 
 class Aprendizaje(Action):
 

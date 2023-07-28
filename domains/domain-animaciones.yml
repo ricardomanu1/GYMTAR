@@ -2,12 +2,14 @@
 session_config:
   session_expiration_time: 36000
   carry_over_slots_to_new_session: true
+
 intents:
 - a_despedir
 - a_informar
 - a_narrar
 - a_preguntar
 - a_saludar
+
 responses:
   utter_a_despedir:
   - metadata:

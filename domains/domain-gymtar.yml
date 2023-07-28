@@ -2,6 +2,7 @@
 session_config:
   session_expiration_time: 36000
   carry_over_slots_to_new_session: true
+
 intents:
 - rutina
 - rutina_proxima
@@ -9,6 +10,7 @@ intents:
 - register
 - login
 - iniciar_rutina
+
 slots:  
   data:
     type: categorical    
