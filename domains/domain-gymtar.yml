@@ -42,10 +42,26 @@ responses:
       subtext: informar     
     text: Tendrás esta rutina
 
+  - condition:
+      - type: slot
+        name: data
+        value: "nodata"
+    text: "No tienes nada programado para mañana."
+    metadata:
+      subtext: informar 
+
   utter_rutina_anterior:
   - metadata:
       subtext: informar     
     text: Tuviste esta rutina
+
+  - condition:
+      - type: slot
+        name: data
+        value: "nodata"
+    text: "No hay datos registrados del día de ayer."
+    metadata:
+      subtext: informar 
 
   utter_register:
   - metadata:

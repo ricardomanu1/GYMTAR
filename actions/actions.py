@@ -1,4 +1,4 @@
-import csv, importlib, json, os, typing
+import csv, json, os, typing
 from pickle import NONE
 import datetime as dt
 import xml.etree.cElementTree as ET
@@ -436,6 +436,7 @@ class Database():
             contenido_user = getattr(db, "select_routine")(id_user,date)
             if contenido_user is not None: 
                 Database.routine(contenido_user)
+                slot_data = ""
             else:
                 print("No hay datos para esta fecha")
                 slot_data = "nodata"
@@ -446,6 +447,7 @@ class Database():
             contenido_user = getattr(db, "select_routine")(id_user,date)
             if contenido_user is not None: 
                 Database.routine(contenido_user)
+                slot_data = ""
             else:
                 print("No hay datos para esta fecha")
                 slot_data = "nodata"
@@ -456,6 +458,7 @@ class Database():
             contenido_user = getattr(db, "select_routine")(id_user,date)
             if contenido_user is not None: 
                 Database.routine(contenido_user)
+                slot_data = ""
             else:
                 print("No hay datos para esta fecha")
                 slot_data = "nodata"
